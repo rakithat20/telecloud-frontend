@@ -1,8 +1,36 @@
 import PropTypes from 'prop-types';
 import { MdImage, MdDescription, MdAudioFile } from 'react-icons/md';
 import { FaFileVideo, FaDownload } from 'react-icons/fa';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 export const Card = ({ file }) => {
+  const [filedownload,setFileDownload] = useState(null);
+
+  const handleDownload = (file)=>{
+    setFileDownload(file);
+  }
+  useEffect(() => {
+    if (filedownload) {
+      axios.get(`http://localhost:3000/download/${filedownload.id}`, { responseType: 'blob' })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filedownload.fileName;
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url); // Clean up the URL object after download
+        })
+        .catch((error) => {
+          console.error("There was an error: ", error);
+        });
+    }
+  }, [filedownload]);
+  
+
   function getIconByFileType(passedFile) {
     if (passedFile.mimeType.includes("image")) {
       return <MdImage className="w-16 h-16 text-gray-400" />;
@@ -20,7 +48,7 @@ export const Card = ({ file }) => {
 
   return (
     <div className="relative w-64 h-72 border-2 border-gray-300 rounded-lg shadow-md overflow-hidden hover:scale-105">
-      <div className="absolute top-2 right-2">
+      <div className="absolute top-2 right-2" onClick={()=>{handleDownload(file)}}>
         <FaDownload className="text-gray-400 cursor-pointer hover:text-gray-600 focus:text-gray-900 text-xl" />
       </div>
       <div className="w-full h-2/3 bg-gray-100 flex items-center justify-center">
@@ -37,6 +65,7 @@ export const Card = ({ file }) => {
 
 Card.propTypes = {
   file: PropTypes.shape({
+    id:PropTypes.number.isRequired,
     fileName: PropTypes.string.isRequired,
     fileSize: PropTypes.number.isRequired,
     uploadDate: PropTypes.string.isRequired,

@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom'; 
 
 const Login = () => {
   const [number, setNumber] = useState('');
   const [ok,setOk] = useState(false);
-
+  const navigate = useNavigate();
+ 
   const handleSetNumber = (e) => {
     setNumber(e.target.value.replace(/\D/,''));
   }
@@ -19,6 +21,7 @@ const Login = () => {
       if(ok){
         let session = res.data;
         localStorage.setItem("session",session)
+        navigate('/files')
       }
       else{
         if(res.status == 200){
