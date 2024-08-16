@@ -4,24 +4,23 @@ import Search from '../components/Search';
 import axios from 'axios';
 
 const Files = () => {
-  const [files, setFiles] = useState([]); // State to hold files data
-  const [loading, setLoading] = useState(true); // State to manage loading state
+  const [files, setFiles] = useState([]); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch files from the server when the component mounts
     axios.get('http://localhost:3000/files/')
       .then((response) => {
-        setFiles(response.data); // Update the files state with fetched data
-        setLoading(false); // Set loading to false once data is fetched
+        setFiles(response.data); 
+        setLoading(false); 
       })
       .catch((error) => {
         console.error("There was an error fetching the files!", error);
-        setLoading(false); // Also stop loading on error
+        setLoading(false); 
       });
-  }, []); // Empty dependency array means this effect runs once when the component mounts
+  }, []); 
 
   if (loading) {
-    return <div>Loading...</div>; // Show a loading state while fetching data
+    return <div>Loading...</div>; 
   }
 
   return (
