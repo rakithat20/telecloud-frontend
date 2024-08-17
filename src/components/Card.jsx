@@ -22,7 +22,7 @@ export const Card = ({ file }) => {
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
-          window.URL.revokeObjectURL(url); // Clean up the URL object after download
+          window.URL.revokeObjectURL(url); 
         })
         .catch((error) => {
           console.error("There was an error: ", error);

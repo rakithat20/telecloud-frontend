@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'; // Import necessary hooks
+import { useEffect, useState } from 'react'; 
 import Card from '../components/Card';
 import Search from '../components/Search';
 import axios from 'axios';
