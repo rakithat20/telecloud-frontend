@@ -1,5 +1,17 @@
 
 function Home() {
+  const handleAutoLogin = ()=>{
+    try {
+      const number = localStorage.getItem("number");
+      const session = localStorage.getItem("session");
+      console.log(number);
+      console.log(session)
+    } catch (error) {
+      console.log(error)
+      
+    }
+  }
+  handleAutoLogin();
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
       <header className="text-center mb-8">
@@ -15,12 +27,7 @@ function Home() {
           >
             Login
           </a>
-          <a
-            href="/upload"
-            className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-300"
-          >
-            Upload Files
-          </a>
+          
         </div>
       </main>
     </div>

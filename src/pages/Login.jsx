@@ -13,11 +13,13 @@ const Login = () => {
   const handleEnter =(e)=>{
     e.preventDefault();
     console.log(number);
+    localStorage.setItem("number",number);
     
     axios.post(ok?'http://localhost:3000/login/verify':'http://localhost:3000/login/',ok?{
       otp:number,
     }:{pnumber:number})
     .then((res)=>{
+      
       if(ok){
         let session = res.data;
         localStorage.setItem("session",session)

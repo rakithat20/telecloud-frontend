@@ -26,6 +26,14 @@ const Files = () => {
   return (
     <>
       <Search />
+      <div className='text-center'>
+      <a
+            href="/upload"
+            className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-800 transition duration-300"
+          >
+            Upload
+          </a>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-24 content-center py-10">
         {files.map((file) => (
           <Card key={file.id} file={file} />
